@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Product Application</title>
         <link href="{{asset('app.css')}}" rel="stylesheet">
-        @vitereactrefresh
+        {{-- @vitereactrefresh --}}
         @vite(['resources/js/app.jsx'])
     </head>
     <body class="antialiased">

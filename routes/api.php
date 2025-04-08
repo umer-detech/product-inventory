@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\TranslationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 /*
@@ -22,8 +21,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::apiResource('products', ProductController::class);
+    Route::apiResource('translations', TranslationController::class);
+    Route::get('translations/export/json', [TranslationController::class, 'export']);
 });
 
 
-Route::post('/oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+// Route::post('/oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');

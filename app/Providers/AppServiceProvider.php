@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Eloquent\ProductRepository;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Eloquent\TranslationRepository;
+use App\Repositories\Interfaces\TranslationRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Bind Interface in Provider
-        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(TranslationRepositoryInterface::class, TranslationRepository::class);
     }
 
     /**
