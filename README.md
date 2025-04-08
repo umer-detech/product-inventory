@@ -1,66 +1,168 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🚀 Laravel Translation Management API
 
-## About Laravel
+> 📌 **Note:** Use the Postman collection file **`Testing CRUD.postman_collection.json`** located in the root directory to test all API endpoints easily.  
+> 📌 **Branch to Use:** Please make sure you're using the `feature/multi-language` branch to clone/download the latest version.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌍 Laravel Translation Management API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+A powerful, scalable, and secure API service to manage translations across multiple locales with contextual tagging, built using Laravel and Passport.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ✨ Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- ✅ Store translations in multiple locales (`en`, `fr`, `es`, etc.)
+- ✅ Contextual tags like `mobile`, `web`, `desktop`
+- ✅ Create, update, view, and search translations by key, tag, or content
+- ✅ Export updated translations as JSON (ideal for Vue.js frontend)
+- ✅ Fast response times (<200ms for most endpoints)
+- ✅ JSON export handles 100k+ records in <500ms
+- ✅ Factory and seeder support for performance testing
+- ✅ Token-based API Authentication via Laravel Passport
+- ✅ Follows **PSR-12** and **SOLID** principles
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🧰 Installation Guide (Without Docker)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Follow these steps to install and run the project locally:
 
-### Premium Partners
+### 1. Clone the Repository
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/umer-detech/product-inventory.git
+cd product-inventory
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Install PHP & JavaScript Dependencies
 
-## Code of Conduct
+```bash
+composer install
+npm install && npm run build
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### 3. Configure Environment Variables
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## License
+Update `.env` with your database and other environment settings:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```env
+DB_DATABASE=your_db
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+---
+
+### 4. Run Migrations and Seeders
+
+```bash
+php artisan migrate --seed
+```
+
+To populate 100k+ test records for performance testing:
+
+```bash
+php artisan db:seed --class=TranslationSeeder
+```
+
+---
+
+### 5. Install Laravel Passport
+
+```bash
+php artisan passport:install
+```
+
+Make sure `config/auth.php` is set to use passport for the API guard:
+
+```php
+'guards' => [
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
+],
+```
+
+---
+
+### 6. Start the Application
+
+```bash
+php artisan serve
+```
+
+The app will be available at:  
+`http://localhost:8000`
+
+---
+
+## 🔐 Authentication
+
+Use Passport to get access tokens from:
+
+```
+POST /oauth/token
+```
+
+Then use the token for all API requests as:
+
+```
+Authorization: Bearer {your-token}
+```
+
+---
+
+## 🔗 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/translations | List translations with filters and pagination |
+| POST   | /api/translations | Create a new translation |
+| PUT    | /api/translations/{id} | Update a translation |
+| DELETE | /api/translations/{id} | Delete a translation |
+| GET    | /api/translations/export/json | Export translations as JSON |
+
+---
+
+## ✅ Run Tests
+
+```bash
+php artisan test
+```
+
+> Make sure **Xdebug** or **PCOV** is installed for test coverage reports.
+
+---
+
+## 📁 JSON Export
+
+- Always returns the **latest translations**
+- Efficient even with **100,000+ records**
+- Returns response in **< 500ms**
+
+---
+
+## 📜 License
+
+MIT License. Free to use and modify.
+
+---
+
+## 👨‍💻 Developed by
+
+**Umer Saleem**  
+Senior Laravel Developer  
+[Your GitHub Profile](https://github.com/umer-detech)
